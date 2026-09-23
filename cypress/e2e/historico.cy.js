@@ -21,7 +21,7 @@ describe('Módulo de Histórico de Transações', () => {
     const testPass = 'senha123';
 
     it('Deve exibir o histórico de transações de um usuário corretamente', () => {
-      // 1. Registro
+
       registerPage.visit();
       registerPage.fillForm({
         firstName: 'Carlos',
@@ -32,21 +32,17 @@ describe('Módulo de Histórico de Transações', () => {
       });
       registerPage.submit();
 
-      // 2. Login e Onboarding
       loginPage.visit();
       loginPage.login(userWithHistory, testPass);
       handleOnboarding();
 
-      // 3. Realiza a transação
       transactionPage.startNewTransaction();
       transactionPage.selectContact('Devon');
       transactionPage.fillTransactionDetails('25', 'Pagamento de teste');
       transactionPage.submitPayment();
 
-      // 4. Volta ao Feed Principal usando o seletor direto do botão
       cy.get('[data-test="new-transaction-return-to-transactions"]').click();
 
-      // 5. Navega para a aba "Mine" e valida o histórico
       historyPage.goToPersonalHistory();
       historyPage.elements.transactionItems().should('have.length.at.least', 1);
     });
@@ -58,7 +54,6 @@ describe('Módulo de Histórico de Transações', () => {
     const testPass = 'senha123';
 
     it('Deve exibir uma mensagem indicando que o usuário não possui transações anteriores', () => {
-      // 1. Registro
       registerPage.visit();
       registerPage.fillForm({
         firstName: 'Lucas',
@@ -69,12 +64,10 @@ describe('Módulo de Histórico de Transações', () => {
       });
       registerPage.submit();
 
-      // 2. Login e Onboarding
       loginPage.visit();
       loginPage.login(userWithoutHistory, testPass);
       handleOnboarding();
 
-      // 3. Navega diretamente para "Mine" e valida lista vazia
       historyPage.goToPersonalHistory();
       historyPage.elements.emptyStateList().should('be.visible');
       historyPage.elements.emptyStateList().should('contain', 'No Transactions');

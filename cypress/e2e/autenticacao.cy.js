@@ -3,13 +3,11 @@ import registerPage from '../support/page_objects/RegisterPage';
 
 describe('Módulo de Autenticação e Registro', () => {
 
-  // Cria um usuário dinâmico para garantir que o login sempre passe
   const timestamp = new Date().getTime();
   const testUser = `user_${timestamp}`;
   const testPass = 'senha123';
 
   before(() => {
-    // Registra o usuário antes de todos os testes
     registerPage.visit();
     registerPage.fillForm({
       firstName: 'Usuario',
@@ -56,21 +54,18 @@ describe('Módulo de Autenticação e Registro', () => {
       });
       registerPage.submit();
 
-      // Após registrar, o RWA redireciona para a página de login
       cy.location('pathname').should('eq', '/signin');
     });
 
     it('Deve exibir erro ao tentar registrar sem preencher campos obrigatórios', () => {
       registerPage.visit();
 
-      // Clica nos campos sem preencher para ativar os erros de validação
       cy.get('#firstName').focus().blur();
       cy.get('#lastName').focus().blur();
       cy.get('#username').focus().blur();
       cy.get('#password').focus().blur();
       cy.get('#confirmPassword').focus().blur();
-
-      // Verifica se o botão de submit continua desabilitado
+      
       cy.get('[data-test="signup-submit"]').should('be.disabled');
     });
   });

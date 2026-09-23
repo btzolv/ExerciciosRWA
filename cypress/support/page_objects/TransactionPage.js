@@ -1,5 +1,4 @@
 class TransactionPage {
-  // Elementos da página
   elements = {
     newTransactionBtn: () => cy.get('[data-test="nav-top-new-transaction"]'),
     userSearchInput: () => cy.get('[data-test="user-list-search-input"]'),
@@ -11,7 +10,6 @@ class TransactionPage {
     alertMessage: () => cy.get('.MuiAlert-message')
   };
 
-  // Ações
   startNewTransaction() {
     this.elements.newTransactionBtn().click();
   }
