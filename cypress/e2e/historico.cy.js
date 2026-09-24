@@ -1,7 +1,7 @@
 import loginPage from '../support/page_objects/LoginPage';
 import registerPage from '../support/page_objects/RegisterPage';
 import transactionPage from '../support/page_objects/TransactionPage';
-import historyPage from 'cypress\support\page_objects\HistoryPage.js'
+import historyPage from '../support/page_objects/HistoryPage.js'
 
 const handleOnboarding = () => {
   cy.get('[data-test="user-onboarding-dialog"]').should('be.visible');
